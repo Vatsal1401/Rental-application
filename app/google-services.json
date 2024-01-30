@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "102073993979",
+    "project_id": "rental-ease",
+    "storage_bucket": "rental-ease.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102073993979:android:4afd66982dba0316c6be5e",
+        "android_client_info": {
+          "package_name": "com.projects.rentalease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102073993979-ehgv9ndfqjhtaci0ndr3iv8q8eq564oi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxge-D2SWivHOOdPV9UvwTqZcm0E1c38Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102073993979-ehgv9ndfqjhtaci0ndr3iv8q8eq564oi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
