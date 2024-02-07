@@ -31,6 +31,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        FirestoreRecyclerOptions<Category> fireStoreRecyclerOption =
+                new FirestoreRecyclerOptions.Builder<Category>()
+                        .setQuery(categorysRef, Category.class)
+                        .build();
+
+        categoryListAdapter = new CategoryListAdapter(fireStoreRecyclerOption,getContext());
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -43,14 +51,20 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirestoreRecyclerOptions<Category> fireStoreRecyclerOption =
-                new FirestoreRecyclerOptions.Builder<Category>()
-                        .setQuery(categorysRef, Category.class)
-                        .build();
-
-        categoryListAdapter = new CategoryListAdapter(fireStoreRecyclerOption);
 
         recyclerView.setAdapter(categoryListAdapter);
 
+    }
+
+    @Override
+    public void onStart() {
+        categoryListAdapter.startListening();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        categoryListAdapter.stopListening();
+        super.onStop();
     }
 }

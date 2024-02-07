@@ -1,5 +1,6 @@
 package com.projects.rentalease.adapters;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,8 +20,10 @@ import com.projects.rentalease.data.Category;
 public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, CategoryListAdapter.VH> {
 
 
-    public CategoryListAdapter(@NonNull FirestoreRecyclerOptions<Category> options) {
+    private Context context;
+    public CategoryListAdapter(@NonNull FirestoreRecyclerOptions<Category> options,Context context) {
         super(options);
+        this.context = context;
     }
 
     @NonNull
@@ -33,8 +36,8 @@ public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, Cate
     @Override
     protected void onBindViewHolder(@NonNull VH holder, int position, @NonNull Category model) {
 
-        Glide.with(holder.itemView.getContext())
-                .load(model.image_uri)
+        Glide.with(context)
+                .load(model.imageUrl)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.imageView);
 

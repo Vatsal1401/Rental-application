@@ -2,18 +2,22 @@ package com.projects.rentalease.data;
 
 public class Category {
     public String name;
-    public String image_uri;
+    public String imageUrl;
 
-    public Category(String name, String image_uri){
+    public Category() {
+        // empty constructor needed
+    }
+
+    public Category(String name, String imageUrl) {
         this.name = name;
-        this.image_uri = image_uri;
+        this.imageUrl = imageUrl;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getImage_uri() {
-        return image_uri;
+    public String getImageUrl() {
+        return imageUrl;
     }
 }
