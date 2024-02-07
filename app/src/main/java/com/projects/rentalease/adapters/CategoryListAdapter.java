@@ -37,11 +37,14 @@ public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, Cate
     protected void onBindViewHolder(@NonNull VH holder, int position, @NonNull Category model) {
 
         Glide.with(context)
-                .load(model.imageUrl)
+                .load(url(model.imageUrl))
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.imageView);
 
         holder.captionText.setText(model.name);
+    }
+    String url(String input){
+        return "https://firebasestorage.googleapis.com/v0/b/rental-ease.appspot.com/o/"+input;
     }
 
 
