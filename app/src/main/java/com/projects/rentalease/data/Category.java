@@ -9,8 +9,11 @@ public class Category {
         this.image_uri = image_uri;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
+    public String getImage_uri() {
+        return image_uri;
+    }
 }

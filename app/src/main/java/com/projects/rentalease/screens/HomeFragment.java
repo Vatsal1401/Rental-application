@@ -11,14 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.projects.rentalease.R;
 import com.projects.rentalease.adapters.CategoryListAdapter;
+import com.projects.rentalease.data.Category;
 import com.projects.rentalease.sample_data.CategoryListData;
 
 
 public class HomeFragment extends Fragment {
 
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference categorysRef = db.collection("categories");
 
     private RecyclerView recyclerView;
     private CategoryListAdapter categoryListAdapter;
@@ -38,7 +43,12 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        categoryListAdapter = new CategoryListAdapter(CategoryListData.getCategoryList(),getContext());
+        FirestoreRecyclerOptions<Category> fireStoreRecyclerOption =
+                new FirestoreRecyclerOptions.Builder<Category>()
+                        .setQuery(categorysRef, Category.class)
+                        .build();
+
+        categoryListAdapter = new CategoryListAdapter(fireStoreRecyclerOption);
 
         recyclerView.setAdapter(categoryListAdapter);
 

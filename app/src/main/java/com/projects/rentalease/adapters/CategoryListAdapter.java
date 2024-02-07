@@ -1,6 +1,5 @@
 package com.projects.rentalease.adapters;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,43 +9,39 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.projects.rentalease.R;
 import com.projects.rentalease.data.Category;
 
 
-import java.util.List;
 
-public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.VH> {
+public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, CategoryListAdapter.VH> {
 
-    private List<Category> categoryList;
-    private Context context;
 
-    public CategoryListAdapter(List<Category> categoryList, Context context){
-        this.categoryList = categoryList;
-        this.context = context;
+    public CategoryListAdapter(@NonNull FirestoreRecyclerOptions<Category> options) {
+        super(options);
     }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new VH(View.inflate(parent.getContext(), R.layout.category_list_item, null));
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull VH holder, int position) {
-        Category category = categoryList.get(position);
 
-        Glide.with(context)
-                .load(category.image_uri)
+    @Override
+    protected void onBindViewHolder(@NonNull VH holder, int position, @NonNull Category model) {
+
+        Glide.with(holder.itemView.getContext())
+                .load(model.image_uri)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.imageView);
 
-        holder.captionText.setText(category.name);
+        holder.captionText.setText(model.name);
     }
 
-    @Override
-    public int getItemCount() {
-        return categoryList.size();
-    }
+
 
     class VH extends RecyclerView.ViewHolder {
 

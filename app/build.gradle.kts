@@ -71,4 +71,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
 
 
+    // FirebaseUI for Cloud Firestore
+    implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+
+
 }
