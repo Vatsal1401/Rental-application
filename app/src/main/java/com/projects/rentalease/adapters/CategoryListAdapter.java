@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.projects.rentalease.R;
 import com.projects.rentalease.data.Category;
 
@@ -19,6 +21,8 @@ import com.projects.rentalease.data.Category;
 
 public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, CategoryListAdapter.VH> {
 
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
     private Context context;
     public CategoryListAdapter(@NonNull FirestoreRecyclerOptions<Category> options,Context context) {
@@ -36,16 +40,19 @@ public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, Cate
     @Override
     protected void onBindViewHolder(@NonNull VH holder, int position, @NonNull Category model) {
 
-        Glide.with(context)
-                .load(url(model.imageUrl))
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(holder.imageView);
+
+        StorageReference ref =  firebaseStorage.getReference().child("categories/"+model.imageUrl);
+
+        ref.getDownloadUrl().addOnSuccessListener(url -> {
+            Glide.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(holder.imageView);
+        });
 
         holder.captionText.setText(model.name);
     }
-    String url(String input){
-        return "https://firebasestorage.googleapis.com/v0/b/rental-ease.appspot.com/o/"+input;
-    }
+
 
 
 

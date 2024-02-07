@@ -14,10 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.projects.rentalease.R;
 import com.projects.rentalease.adapters.CategoryListAdapter;
 import com.projects.rentalease.data.Category;
 import com.projects.rentalease.sample_data.CategoryListData;
+
+import java.util.concurrent.CompletableFuture;
 
 
 public class HomeFragment extends Fragment {
@@ -45,6 +49,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.category_recycler_view);
