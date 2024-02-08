@@ -1,6 +1,7 @@
 package com.projects.rentalease.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,25 +22,33 @@ import com.projects.rentalease.data.Category;
 
 public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, CategoryListAdapter.VH> {
 
+    CategoryListListeners categoryListListeners;
+
 
     FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
     private Context context;
-    public CategoryListAdapter(@NonNull FirestoreRecyclerOptions<Category> options,Context context) {
+    public CategoryListAdapter(@NonNull FirestoreRecyclerOptions<Category> options,Context context,CategoryListListeners categoryListListeners) {
         super(options);
         this.context = context;
+        this.categoryListListeners = categoryListListeners;
     }
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VH(View.inflate(parent.getContext(), R.layout.category_list_item, null));
+        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_item,parent,false);
+
+        return new VH(layout);
     }
 
 
     @Override
     protected void onBindViewHolder(@NonNull VH holder, int position, @NonNull Category model) {
 
+        holder.itemView.setOnClickListener(v -> {
+            categoryListListeners.onCategoryClick(model);
+        });
 
         StorageReference ref =  firebaseStorage.getReference().child("categories/"+model.imageUrl);
 
@@ -64,5 +73,8 @@ public class CategoryListAdapter extends FirestoreRecyclerAdapter<Category, Cate
         public VH(View view) {
             super(view);
         }
+    }
+    public interface CategoryListListeners{
+        void onCategoryClick(Category category);
     }
 }

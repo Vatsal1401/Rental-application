@@ -9,7 +9,11 @@
         android:id="@+id/home"
         android:name="com.projects.rentalease.screens.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.projects.rentalease.screens.ProfileFragment"
@@ -30,4 +34,9 @@
         android:name="com.projects.rentalease.screens.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.projects.rentalease.screens.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" />
 </navigation>
