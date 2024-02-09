@@ -71,6 +71,12 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
         ImageView imageView = itemView.findViewById(R.id.itemImageView);
         TextView titleText = itemView.findViewById(R.id.caption);
 
+        TextView nametext = itemView.findViewById(R.id.itemNameTextView);
+
+        TextView descriptiontext = itemView.findViewById(R.id.itemDescriptionTextView);
+
+        TextView pricetext = itemView.findViewById(R.id.itemPriceTextView);
+        TextView addcarttext = itemView.findViewById(R.id.addToCartButton);
         public VH(View view) {
             super(view);
         }
