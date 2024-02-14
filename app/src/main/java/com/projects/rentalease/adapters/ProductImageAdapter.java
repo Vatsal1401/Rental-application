@@ -1,11 +1,15 @@
 package com.projects.rentalease.adapters;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.projects.rentalease.R;
 import com.projects.rentalease.data.Product;
+import com.projects.rentalease.ui.FullScreenImageDialog;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ProductImageAdapter extends RecyclerView.Adapter<ProductImageAdapter.ViewHolder> {
     Context context;
@@ -46,7 +52,11 @@ public class ProductImageAdapter extends RecyclerView.Adapter<ProductImageAdapte
                 .load(arrayList.get(position))
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.imageView);
-        Log.d("image added", arrayList.get(position).toString());
+
+        holder.imageView.setOnClickListener(view -> {
+            FullScreenImageDialog dialog = new FullScreenImageDialog(context, arrayList.get(position));
+            dialog.show();
+        });
     }
 
     @Override
