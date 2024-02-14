@@ -43,14 +43,22 @@
                 tools:text="Mixture"
                 style="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/itemImageRecyclerView" />
 
-            <ImageView
-                android:id="@+id/itemImageView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemImageRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_foreground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.helper.widget.Carousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -63,37 +71,17 @@
                 tools:text="150 / day"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/itemImageRecyclerView" />
 
-            <Button
+            <ImageView
+                android:padding="8dp"
+                android:backgroundTint="@color/white"
                 android:id="@+id/addToCartButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add to Cart"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:src="@drawable/favorite_24px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/itemPriceTextView" />
-
-            <ImageButton
-                android:padding="8dp"
-                android:background="#00000000"
-                android:id="@+id/previousImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_left_24"
-                app:layout_constraintBottom_toBottomOf="@+id/itemImageView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/itemImageView" />
-
-            <ImageButton
-                android:background="#00000000"
-                android:padding="8dp"
-                android:id="@+id/nextImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_right_24"
-                app:layout_constraintBottom_toBottomOf="@+id/itemImageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/itemImageView" />
 
             <TextView
                 android:id="@+id/itemDescriptionTextView"
