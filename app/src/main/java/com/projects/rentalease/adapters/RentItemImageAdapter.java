@@ -26,9 +26,8 @@ public class RentItemImageAdapter extends RecyclerView.Adapter<RentItemImageAdap
     }
 
     public void clearImages(){
-        int size = images.size()-1;
         images.clear();
-        notifyItemRangeRemoved(0,size);
+        notifyDataSetChanged();
     }
 
     @NonNull

@@ -19,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.projects.rentalease.R;
 import com.projects.rentalease.adapters.CategoryListAdapter;
 import com.projects.rentalease.data.Category;
-import com.projects.rentalease.models.MainViewModel;
 
 
 
@@ -31,12 +30,10 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Catego
 
     private RecyclerView recyclerView;
     private CategoryListAdapter categoryListAdapter;
-    private MainViewModel mainViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
     }
 
     @Override
@@ -83,7 +80,8 @@ public class HomeFragment extends Fragment implements CategoryListAdapter.Catego
 
     @Override
     public void onCategoryClick(Category category) {
-        mainViewModel.setCategory(category);
-        Navigation.findNavController(requireView()).navigate(R.id.action_home_to_productsFragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("category", category.getName());
+        Navigation.findNavController(requireView()).navigate(R.id.action_home_to_productsFragment,bundle);
     }
 }

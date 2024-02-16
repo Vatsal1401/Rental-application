@@ -33,17 +33,19 @@
             android:id="@+id/nameDescriptionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             >
 
             <TextView
                 android:id="@+id/itemNameTextView"
-                android:layout_width="97dp"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:textSize="24sp"
-                tools:text="Mixture"
-                style="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toStartOf="@+id/itemPriceTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemImageRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/itemImageRecyclerView"
+                tools:text="Mixture" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/itemImageRecyclerView"
@@ -74,14 +76,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/itemImageRecyclerView" />
 
             <ImageView
-                android:padding="8dp"
                 android:backgroundTint="@color/white"
                 android:id="@+id/addToCartButton"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/favorite_24px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/itemPriceTextView" />
+
+            <TextView
+                android:id="@+id/like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/addToCartButton"
+                app:layout_constraintStart_toStartOf="@id/addToCartButton"
+                app:layout_constraintTop_toBottomOf="@id/addToCartButton" />
 
             <TextView
                 android:id="@+id/itemDescriptionTextView"

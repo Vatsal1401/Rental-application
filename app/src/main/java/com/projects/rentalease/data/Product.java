@@ -1,10 +1,10 @@
 package com.projects.rentalease.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
 
-    private String postId;
     public String userId;
     public String category;
 
@@ -15,6 +15,8 @@ public class Product {
 
     public String contactDetails;
 
+    ArrayList<String> likedBy;
+
     public Product(String userId, String category, String name, String description, String price, String contactDetails) {
         this.userId = userId;
         this.category = category;
@@ -22,10 +24,12 @@ public class Product {
         this.description = description;
         this.price = price;
         this.contactDetails = contactDetails;
+        likedBy = new ArrayList<>();
     }
 
     public Product() {
         // empty constructor required by firebase
+        likedBy = new ArrayList<>();
     }
 
     public String getUserId() {
@@ -56,13 +60,7 @@ public class Product {
         return contactDetails;
     }
 
-    public String getPostId() {
-        return postId;
-    }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
-    }
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -90,5 +88,13 @@ public class Product {
 
     public void setContactDetails(String contactDetails) {
         this.contactDetails = contactDetails;
+    }
+
+    public ArrayList<String> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(ArrayList<String> likedBy) {
+        this.likedBy = likedBy;
     }
 }

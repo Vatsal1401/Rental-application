@@ -43,9 +43,16 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item,parent,false);
-
-        return new VH(layout);
+        VH holder =new VH(LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_item,parent,false));
+        holder.likeButton.setOnClickListener(v -> {
+            String postId = getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getId();
+            categoryListListeners.onProductLikeClick(postId);
+        });
+        holder.itemView.setOnClickListener(v -> {
+            String postId = getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getId();
+            categoryListListeners.onProductClick(postId);
+        });
+        return holder;
     }
 
 
@@ -59,10 +66,6 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
         holder.recyclerView.setAdapter(adapter);
 
 
-
-        holder.itemView.setOnClickListener(v -> {
-            categoryListListeners.onCategoryClick(model);
-        });
 
         StorageReference ref =  firebaseStorage.getReference().child("images")
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
@@ -78,6 +81,15 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
         holder.descriptiontext.setText(model.description);
         holder.pricetext.setText(model.price);
 
+        if(model.getLikedBy().contains(FirebaseAuth.getInstance().getUid())){
+            holder.likeButton.setImageResource(R.drawable.favorite_fill_24px);
+        }else{
+            holder.likeButton.setImageResource(R.drawable.favorite_24px);
+        }
+
+        int likes = model.getLikedBy().size();
+
+        holder.likeCount.setText(likes == 0 ? "" :String.valueOf(likes));
 
     }
 
@@ -92,8 +104,9 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
         TextView descriptiontext = itemView.findViewById(R.id.itemDescriptionTextView);
 
         TextView pricetext = itemView.findViewById(R.id.itemPriceTextView);
-        ImageView addcarttext = itemView.findViewById(R.id.addToCartButton);
+        ImageView likeButton = itemView.findViewById(R.id.addToCartButton);
 
+        TextView likeCount = itemView.findViewById(R.id.like_count);
 
         public VH(View view) {
             super(view);
@@ -102,7 +115,8 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
         }
     }
     public interface CategoryListListeners{
-        void onCategoryClick(Product product);
+        void onProductClick(String productId);
+        void onProductLikeClick(String productId);
     }
 }
 

@@ -15,8 +15,8 @@ import com.bumptech.glide.Glide;
 import com.projects.rentalease.R;
 
 public class FullScreenImageDialog extends Dialog {
-    private Context context;
-    private Uri imageUri;
+    private final Context context;
+    private final Uri imageUri;
 
     public FullScreenImageDialog(@NonNull Context context, Uri imageUri) {
         super(context);
