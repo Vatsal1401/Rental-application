@@ -24,6 +24,13 @@ public class RentItemImageAdapter extends RecyclerView.Adapter<RentItemImageAdap
         this.images = images;
         this.context = context;
     }
+
+    public void clearImages(){
+        int size = images.size()-1;
+        images.clear();
+        notifyItemRangeRemoved(0,size);
+    }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

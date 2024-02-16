@@ -1,7 +1,5 @@
 package com.projects.rentalease.sample_data;
 
-
-
 import com.projects.rentalease.data.Category;
 
 import java.util.ArrayList;

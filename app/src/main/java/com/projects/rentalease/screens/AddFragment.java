@@ -17,11 +17,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 import com.projects.rentalease.R;
 import com.projects.rentalease.adapters.RentItemImageAdapter;
 import com.projects.rentalease.daos.ProductsDao;
@@ -36,8 +36,9 @@ import java.util.stream.Collectors;
 
 public class AddFragment extends Fragment {
 
-    private FragmentAddBinding _binding;
+    private FragmentAddBinding binding;
 
+    private String EMPTY_CATEGORY = "Select Category";
     List<Uri> imagesList;
     RentItemImageAdapter adapter;
 
@@ -55,7 +56,7 @@ public class AddFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        _binding = FragmentAddBinding.inflate(inflater,container,false);
+        binding = FragmentAddBinding.inflate(inflater,container,false);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -64,7 +65,7 @@ public class AddFragment extends Fragment {
 
         imagesList = new ArrayList<>();
 
-        return _binding.getRoot();
+        return binding.getRoot();
     }
 
     private void setSpinner() {
@@ -74,7 +75,7 @@ public class AddFragment extends Fragment {
                     task.getResult().toObjects(Category.class).stream().map(
                             category1 -> category1.name
                     ).collect(Collectors.toList());
-            list.add(0,"Select Category");
+            list.add(0,EMPTY_CATEGORY);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     requireContext(),
@@ -83,7 +84,7 @@ public class AddFragment extends Fragment {
             );
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            _binding.setCategoryButton.setAdapter(adapter);
+            binding.setCategoryButton.setAdapter(adapter);
         });
 
     }
@@ -110,7 +111,11 @@ public class AddFragment extends Fragment {
 
 
         view.findViewById(R.id.publish).setOnClickListener(view1 -> {
-
+            String error = checkInput();
+            if(!error.equals("no")){
+                Toast.makeText(requireContext(),error, Toast.LENGTH_LONG).show();
+                return;
+            }
             String name = ((EditText) view.findViewById(R.id.Name)).getText().toString();
             String description = ((EditText) view.findViewById(R.id.description)).getText().toString();
             String price = ((EditText) view.findViewById(R.id.price)).getText().toString();
@@ -156,10 +161,21 @@ public class AddFragment extends Fragment {
         }
     }
 
+    private String checkInput(){
+        if(category == EMPTY_CATEGORY) return "You Must select Category";
+        else if(imagesList.size() < 3) return "Atlest three image should be uploded";
+        else if (binding.Name.getText().toString().isEmpty())return "You Must Add Title";
+        else if (binding.description.getText().toString().isEmpty())return "Description must be added";
+        else if(binding.price.getText().toString().isEmpty())return "You must provide Price";
+
+        return "no";
+
+    }
     private void clearInput(){
-       _binding.Name.setText("");
-        _binding.description.setText("");
-        _binding.price.setText("");
-        adapter.notifyDataSetChanged();
+       binding.Name.setText("");
+        binding.description.setText("");
+        binding.price.setText("");
+        binding.setCategoryButton.setSelection(0);
+        adapter.clearImages();
     }
 }
