@@ -25,8 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.projects.rentalease.R;
 import com.projects.rentalease.adapters.RentItemImageAdapter;
 import com.projects.rentalease.daos.ProductsDao;
-import com.projects.rentalease.data.Category;
-import com.projects.rentalease.data.Product;
+import com.projects.rentalease.model.Category;
+import com.projects.rentalease.model.Product;
 import com.projects.rentalease.databinding.FragmentAddBinding;
 
 import java.util.ArrayList;

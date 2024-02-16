@@ -1,4 +1,4 @@
-package com.projects.rentalease.data;
+package com.projects.rentalease.model;
 public class User {
     public String name;
     public String email;

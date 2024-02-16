@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -20,13 +19,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.projects.rentalease.R;
 import com.projects.rentalease.adapters.ProductListAdapter;
-import com.projects.rentalease.data.Product;
+import com.projects.rentalease.model.Product;
 import com.projects.rentalease.databinding.FragmentProductsBinding;
-
-import java.util.Objects;
 
 public class ProductsFragment extends Fragment implements ProductListAdapter.CategoryListListeners {
 
@@ -91,10 +87,10 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Cat
     }
 
     @Override
-    public void onProductClick(String productId) {
+    public void chatNowClicked(String productId) {
         Bundle bundle = new Bundle();
         bundle.putString("product_id", productId);
-        Navigation.findNavController(requireView()).navigate(R.id.action_productsFragment_to_productInformationFragment, bundle);
+        Navigation.findNavController(requireView()).navigate(R.id.action_productsFragment_to_chat, bundle);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.projects.rentalease.sample_data;
 
-import com.projects.rentalease.data.Category;
+import com.projects.rentalease.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.projects.rentalease.daos.UserDao;
-import com.projects.rentalease.data.User;
+import com.projects.rentalease.model.User;
 
 public class RegistrationActivity extends AppCompatActivity {
 

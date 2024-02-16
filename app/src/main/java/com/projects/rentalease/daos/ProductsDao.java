@@ -7,7 +7,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.projects.rentalease.data.Product;
+import com.projects.rentalease.model.Product;
 
 import java.util.Date;
 import java.util.List;

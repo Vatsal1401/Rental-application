@@ -1,11 +1,15 @@
 package com.projects.rentalease;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(navView, navController);
 
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if(destination.getId() == R.id.productsFragment
+                    ) {
+                navView.setVisibility(View.GONE);
+            } else {
+                navView.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 }

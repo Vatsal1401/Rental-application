@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.projects.rentalease.R;
-import com.projects.rentalease.data.Product;
+import com.projects.rentalease.model.Product;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,9 +49,9 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
             String postId = getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getId();
             categoryListListeners.onProductLikeClick(postId);
         });
-        holder.itemView.setOnClickListener(v -> {
+        holder.chatNow.setOnClickListener(v -> {
             String postId = getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getId();
-            categoryListListeners.onProductClick(postId);
+            categoryListListeners.chatNowClicked(postId);
         });
         return holder;
     }
@@ -108,6 +109,8 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
 
         TextView likeCount = itemView.findViewById(R.id.like_count);
 
+        Button chatNow = itemView.findViewById(R.id.chat_now);
+
         public VH(View view) {
             super(view);
             recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
@@ -115,7 +118,7 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
         }
     }
     public interface CategoryListListeners{
-        void onProductClick(String productId);
+        void chatNowClicked(String productId);
         void onProductLikeClick(String productId);
     }
 }

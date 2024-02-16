@@ -1,7 +1,6 @@
-package com.projects.rentalease.data;
+package com.projects.rentalease.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Product {
 

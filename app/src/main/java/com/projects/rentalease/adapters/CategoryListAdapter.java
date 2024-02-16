@@ -16,7 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.projects.rentalease.R;
-import com.projects.rentalease.data.Category;
+import com.projects.rentalease.model.Category;
 
 
 
