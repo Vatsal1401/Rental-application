@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.projects.rentalease.R;
 
 
 public class SplashActivity extends AppCompatActivity {
