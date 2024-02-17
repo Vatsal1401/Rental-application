@@ -69,7 +69,7 @@ public class ProductListAdapter  extends FirestoreRecyclerAdapter<Product, Produ
 
 
         StorageReference ref =  firebaseStorage.getReference().child("images")
-                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                .child(model.userId)
                 .child(model.images);
 
         ref.listAll().addOnSuccessListener(listings -> {
