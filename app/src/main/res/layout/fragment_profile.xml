@@ -70,7 +70,7 @@
                 <Button
                     android:id="@+id/btnEditProfile"
                     android:layout_width="match_parent"
-                    android:background="@drawable/background"
+                    android:background="@drawable/card"
                     android:layout_height="wrap_content"
                     android:layout_weight="70"
                     android:gravity="center"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="30"
                         android:padding="8dp"
-                        android:text="Hello" />
+                        android:text="@string/undefined" />
 
 
                 </LinearLayout>
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="30"
                         android:padding="8dp"
-                        android:text="Hello" />
+                        android:text="@string/undefined" />
 
 
                 </LinearLayout>

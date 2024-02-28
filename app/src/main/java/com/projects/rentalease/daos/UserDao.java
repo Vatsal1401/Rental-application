@@ -12,7 +12,7 @@ public class UserDao {
     public void addUser(User user){
         if(user != null){
             CompletableFuture.runAsync(()->{
-                users.document(user.email).set(user);
+                users.document(user.uId).set(user);
             });
         }
     }

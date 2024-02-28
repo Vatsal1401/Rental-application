@@ -92,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void updateUI() {
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null){
-            new UserDao().addUser(new User(user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString()));
+            new UserDao().addUser(new User(user.getDisplayName(),user.getEmail(),user.getPhotoUrl().toString(),mAuth.getUid()));
             Intent intent = new Intent(RegistrationActivity.this,MainActivity.class);
             startActivity(intent);
             finish();

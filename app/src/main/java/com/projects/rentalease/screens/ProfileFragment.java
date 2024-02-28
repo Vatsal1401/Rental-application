@@ -2,37 +2,34 @@ package com.projects.rentalease.screens;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.projects.rentalease.R;
+import com.projects.rentalease.model.User;
 
 
 public class ProfileFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
 
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference userRef;
-
+    private DocumentReference userRef;
     public ProfileFragment() {
         // Required empty public constructor
-    }
-
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -43,7 +40,7 @@ public class ProfileFragment extends Fragment {
 
         if (firebaseAuth.getCurrentUser() != null) {
             String userId = firebaseAuth.getCurrentUser().getUid();
-            userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            userRef = FirebaseFirestore.getInstance().collection("users").document(userId);
         }
     }
 
@@ -60,10 +57,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadUserData(View view) {
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User userProfile = dataSnapshot.getValue(User.class);
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                assert value != null;
+                User userProfile = value.toObject(User.class);
 
                 if (userProfile != null) {
                     TextView userNameTextView = view.findViewById(R.id.userName);
@@ -73,40 +71,18 @@ public class ProfileFragment extends Fragment {
                     userEmailTextView.setText(userProfile.email);
 
                     TextView userGenderTextView = view.findViewById(R.id.user_gender);
-                    userGenderTextView.setText(userProfile.gender);
+                    // todo add gender in model/User class and take input of it in RegistrationActivity
+//                    userGenderTextView.setText(userProfile.gender);
 
+                    // todo add dob in model/User class and take input of it in RegistrationActivity
                     TextView userDobTextView = view.findViewById(R.id.user_dob);
-                    userDobTextView.setText(userProfile.dob);
+//                    userDobTextView.setText(userProfile.dob);
 
                     ImageView userProfilePicImageView = view.findViewById(R.id.user_profile_pic);
-                    Picasso.get().load(userProfile.profilePic).into(userProfilePicImageView);
+                    Glide.with(requireContext()).load(userProfile.image_uri).into(userProfilePicImageView);
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("ProfileFragment", "loadUserData:onCancelled", databaseError.toException());
             }
         });
     }
 
-    private static class User {
-        public String name;
-        public String email;
-        public String gender;
-        public String dob;
-        public String profilePic;
-
-        public User() {
-        }
-
-        public User(String name, String email, String gender, String dob, String profilePic) {
-            this.name = name;
-            this.email = email;
-            this.gender = gender;
-            this.dob = dob;
-            this.profilePic = profilePic;
-        }
-    }
 }
-``}
