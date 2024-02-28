@@ -10,35 +10,22 @@ import android.view.ViewGroup;
 
 import com.projects.rentalease.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference userRef;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -51,16 +38,75 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            String userId = firebaseAuth.getCurrentUser().getUid();
+            userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        if (userRef != null) {
+            loadUserData(view);
+        }
+
+        return view;
+    }
+
+    private void loadUserData(View view) {
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User userProfile = dataSnapshot.getValue(User.class);
+
+                if (userProfile != null) {
+                    TextView userNameTextView = view.findViewById(R.id.userName);
+                    userNameTextView.setText(userProfile.name);
+
+                    TextView userEmailTextView = view.findViewById(R.id.user_email);
+                    userEmailTextView.setText(userProfile.email);
+
+                    TextView userGenderTextView = view.findViewById(R.id.user_gender);
+                    userGenderTextView.setText(userProfile.gender);
+
+                    TextView userDobTextView = view.findViewById(R.id.user_dob);
+                    userDobTextView.setText(userProfile.dob);
+
+                    ImageView userProfilePicImageView = view.findViewById(R.id.user_profile_pic);
+                    Picasso.get().load(userProfile.profilePic).into(userProfilePicImageView);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("ProfileFragment", "loadUserData:onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    private static class User {
+        public String name;
+        public String email;
+        public String gender;
+        public String dob;
+        public String profilePic;
+
+        public User() {
+        }
+
+        public User(String name, String email, String gender, String dob, String profilePic) {
+            this.name = name;
+            this.email = email;
+            this.gender = gender;
+            this.dob = dob;
+            this.profilePic = profilePic;
+        }
     }
 }
+``}
