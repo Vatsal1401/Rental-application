@@ -26,11 +26,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Sign Up"
+            android:layout_marginTop="21dp"
+            android:text="Google Sign Up"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="50sp" />
+            android:textSize="40sp"
+            />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"

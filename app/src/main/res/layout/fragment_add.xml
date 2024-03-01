@@ -95,7 +95,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="18dp"
-                    android:layout_marginTop="16dp"
                     android:hint="Price"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -104,25 +103,13 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/price"
-                        android:layout_width="175dp"
-                        android:layout_height="45dp"
-                        android:layout_margin="18dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="text"
-                        app:layout_constraintEnd_toEndOf="@+id/set_time_button"
+                        app:layout_constraintEnd_toEndOf="@+id/description_layout"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/description" />
-
-                    <Spinner
-                        android:id="@+id/set_time_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="18dp"
-                        android:padding="18dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/price"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/price"
-                        app:layout_constraintTop_toTopOf="@+id/price" />
+                        app:layout_constraintTop_toBottomOf="@+id/description_layout"/>
 
 
                 </com.google.android.material.textfield.TextInputLayout>
