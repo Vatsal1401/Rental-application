@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SignUpActivity extends AppCompatActivity {
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+
+public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText edtSignUpFullName;
     private TextInputEditText edtSignUpMobile;
@@ -22,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_login);
 
         edtSignUpFullName = findViewById(R.id.edtSignUpFullName);
         edtSignUpMobile = findViewById(R.id.edtSignUpMobile);
@@ -39,14 +43,14 @@ public class SignUpActivity extends AppCompatActivity {
 
                 // Validate input
                 if (fullName.isEmpty() || mobile.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your full name and mobile number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please enter your full name and mobile number", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // TODO: Save user data to Firebase
 
                 // Start sign-in activity
-                Intent signInIntent = new Intent(SignUpActivity.this, SignInActivity.class);
+                Intent signInIntent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(signInIntent);
             }
         });
@@ -56,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle sign-in text click event
-                Intent signInIntent = new Intent(SignUpActivity.this, SignInActivity.class);
+                Intent signInIntent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(signInIntent);
             }
         });
@@ -64,16 +68,3 @@ public class SignUpActivity extends AppCompatActivity {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-}
