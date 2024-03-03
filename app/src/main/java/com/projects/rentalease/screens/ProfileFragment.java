@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import android.widget.Button;
+import android.widget.EditText;
+
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +54,25 @@ public class ProfileFragment extends Fragment {
 
         if (userRef != null) {
             loadUserData(view);
+
+            final View finalView = view;
+            Button btnEditProfile = view.findViewById(R.id.btnEditProfile);
+            btnEditProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Enable editing for mobile number and address EditText fields
+                    EditText userMobileEdit = finalView.findViewById(R.id.user_gender);
+                    EditText userAddressEdit = finalView.findViewById(R.id.user_dob);
+                    userMobileEdit.setEnabled(true);
+                    userAddressEdit.setEnabled(true);
+
+                }
+            });
         }
 
         return view;
     }
+
 
     private void loadUserData(View view) {
         userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -86,3 +104,4 @@ public class ProfileFragment extends Fragment {
     }
 
 }
+
